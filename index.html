@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shop fashion, electronics and everyday essentials at Nova Market.">
+  <title>Nova Market | Shop Smarter</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="announcement">✨ Special offer: Use NOVA10 for 10% off your order</div>
+
+  <header class="header">
+    <a href="#" class="logo" onclick="showHome();return false;">nova<span>.</span></a>
+    <form class="search" id="searchForm">
+      <input id="searchInput" type="search" placeholder="Search products..." aria-label="Search products">
+      <button type="submit">⌕</button>
+    </form>
+    <div class="header-actions">
+      <button class="icon-button" id="themeBtn" aria-label="Toggle theme">☾</button>
+      <button class="icon-button" id="accountBtn" aria-label="Account">♙</button>
+      <button class="icon-button" id="wishlistBtn" aria-label="Wishlist">♡ <span id="wishCount">0</span></button>
+      <button class="cart-button" id="cartBtn">Bag <span id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a href="#" onclick="filterCategory('All');return false;">All Products</a>
+    <a href="#" onclick="filterCategory('Fashion');return false;">Fashion</a>
+    <a href="#" onclick="filterCategory('Electronics');return false;">Electronics</a>
+    <a href="#" onclick="filterCategory('Home');return false;">Home & Living</a>
+    <a href="#" onclick="filterCategory('Accessories');return false;">Accessories</a>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <span class="eyebrow">THE EVERYDAY EDIT</span>
+        <h1>Find your next<br>favorite thing.</h1>
+        <p>Thoughtfully picked essentials, modern style, and little things that make life better.</p>
+        <button class="primary-button" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Explore collection →</button>
+        <div class="hero-note">✓ Great finds &nbsp; ✓ Everyday prices &nbsp; ✓ Easy shopping</div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1100&q=85" alt="Modern fashion store">
+        <div class="floating-card"><strong>New season</strong><br><span>Fresh picks just landed.</span></div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div><span>🚚</span><strong>Easy delivery</strong><small>Convenient shopping</small></div>
+      <div><span>↻</span><strong>Easy returns</strong><small>Shop with confidence</small></div>
+      <div><span>♡</span><strong>Curated products</strong><small>Picked for everyday life</small></div>
+      <div><span>🔒</span><strong>Secure shopping</strong><small>Demo checkout available</small></div>
+    </section>
+
+    <section class="shop-section" id="shop">
+      <div class="section-heading">
+        <div><span class="eyebrow">THE COLLECTION</span><h2>Shop our favorites</h2><p>Good things for your everyday.</p></div>
+        <span id="resultCount" class="result-count"></span>
+      </div>
+
+      <div class="shop-controls">
+        <div class="categories" id="categories">
+          <button class="category active" data-category="All">All</button>
+          <button class="category" data-category="Fashion">Fashion</button>
+          <button class="category" data-category="Electronics">Electronics</button>
+          <button class="category" data-category="Home">Home</button>
+          <button class="category" data-category="Accessories">Accessories</button>
+        </div>
+        <select id="sortSelect" aria-label="Sort products">
+          <option value="featured">Featured</option>
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
+          <option value="rating">Top rated</option>
+        </select>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+      <p class="empty-state hidden" id="emptyState">No products found. Try another search.</p>
+      <button class="secondary-button load-more" id="loadMore">Load more products</button>
+    </section>
+
+    <section class="promo">
+      <div><span class="eyebrow">A LITTLE SOMETHING EXTRA</span><h2>Good finds.<br>Better prices.</h2><p>Take 10% off your order with code <strong>NOVA10</strong>.</p></div>
+      <button class="light-button" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop the collection →</button>
+    </section>
+
+    <section class="newsletter">
+      <span class="eyebrow">THE NOVA NOTE</span>
+      <h2>Good things in your inbox.</h2>
+      <p>Get new arrivals and special offers. No spam, ever.</p>
+      <form id="newsletterForm"><input type="email" id="newsletterEmail" placeholder="Your email address" required><button class="primary-button">Sign me up →</button></form>
+      <small id="newsletterMessage"></small>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="#" class="logo">nova<span>.</span></a>
+    <p>Everyday essentials. Unexpected favorites.</p>
+    <div><a href="#shop">Shop</a><a href="#" id="footerAccount">My account</a><a href="#home">Back to top ↑</a></div>
+    <small>© <span id="year"></span> Nova Market. Demo storefront.</small>
+  </footer>
+
+  <div class="overlay hidden" id="overlay"></div>
+  <aside class="drawer hidden" id="cartDrawer" aria-label="Shopping cart">
+    <div class="drawer-header"><h2>Your bag <span id="drawerCount"></span></h2><button class="close-button" data-close>×</button></div>
+    <div id="cartItems" class="drawer-content"></div>
+    <div class="cart-footer">
+      <form id="couponForm" class="coupon-form"><input id="couponInput" placeholder="Discount code"><button>Apply</button></form>
+      <small id="couponMessage"></small>
+      <div class="price-line"><span>Subtotal</span><strong id="subtotal">₹0</strong></div>
+      <div class="price-line"><span>Discount</span><strong id="discount">₹0</strong></div>
+      <div class="price-line"><span>Shipping</span><strong id="shipping">₹0</strong></div>
+      <div class="price-line total"><span>Total</span><strong id="total">₹0</strong></div>
+      <button class="primary-button full-button" id="checkoutBtn">Proceed to checkout →</button>
+      <p class="tiny-note">Demo checkout only. No real payment is processed.</p>
+    </div>
+  </aside>
+
+  <section class="modal hidden" id="productModal" role="dialog" aria-modal="true">
+    <button class="close-button modal-close" data-close>×</button>
+    <div id="productDetail"></div>
+  </section>
+
+  <section class="modal hidden" id="checkoutModal" role="dialog" aria-modal="true">
+    <button class="close-button modal-close" data-close>×</button>
+    <div id="checkoutContent"></div>
+  </section>
+
+  <section class="modal hidden" id="accountModal" role="dialog" aria-modal="true">
+    <button class="close-button modal-close" data-close>×</button>
+    <div id="accountContent"></div>
+  </section>
+
+  <section class="modal hidden" id="wishlistModal" role="dialog" aria-modal="true">
+    <button class="close-button modal-close" data-close>×</button>
+    <h2>Your wishlist ♡</h2>
+    <div id="wishlistContent"></div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
